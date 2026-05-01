@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surdegskalkylatorn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F7F3EC;
+    --cream-dark: #EDE8DF;
+    --bark: #4A3728;
+    --bark-mid: #7A5C48;
+    --bark-light: #A6846E;
+    --wheat: #C8A97A;
+    --wheat-light: #E8D4B0;
+    --rye: #8B6E4E;
+    --text: #2C1F14;
+    --text-muted: #7A6355;
+    --text-hint: #A89080;
+    --border: rgba(74,55,40,0.15);
+    --border-strong: rgba(74,55,40,0.3);
+    --green: #4A6741;
+    --green-light: #E8F0E6;
+    --amber: #8B6E20;
+    --amber-light: #F5EDCF;
+    --blue: #2C4A6E;
+    --blue-light: #E0EAF5;
+    --red: #8B3A2C;
+    --red-light: #F5E0DC;
+    --radius: 10px;
+    --radius-lg: 16px;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* Header */
+  header {
+    background: var(--bark);
+    padding: 3rem 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 20px,
+      rgba(255,255,255,0.02) 20px,
+      rgba(255,255,255,0.02) 21px
+    );
+  }
+
+  .header-inner { position: relative; z-index: 1; }
+
+  .header-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 1rem;
+    filter: grayscale(0.2);
+  }
+
+  header h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 400;
+    color: var(--wheat-light);
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+  }
+
+  header p {
+    font-size: 1rem;
+    color: var(--bark-light);
+    font-weight: 300;
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Layout */
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  @media (max-width: 680px) {
+    main { grid-template-columns: 1fr; padding: 1.5rem 1rem 3rem; }
+  }
+
+  /* Cards */
+  .card {
+    background: white;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .card-header {
+    padding: 1.25rem 1.5rem 1rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-header-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--cream-dark);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  .card-header h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--bark);
+  }
+
+  .card-body { padding: 1.25rem 1.5rem; }
+
+  /* Slider rows */
+  .slider-row {
+    margin-bottom: 1.2rem;
+  }
+
+  .slider-row:last-child { margin-bottom: 0; }
+
+  .slider-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+
+  .slider-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  .slider-value {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--bark);
+    background: var(--cream);
+    padding: 2px 8px;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+  }
+
+  input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: var(--cream-dark);
+    border-radius: 99px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--bark);
+    border: 3px solid white;
+    box-shadow: 0 1px 4px rgba(74,55,40,0.3);
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+
+  input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+  input[type=range]::-moz-range-thumb {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--bark); border: 3px solid white;
+    box-shadow: 0 1px 4px rgba(74,55,40,0.3); cursor: pointer;
+  }
+
+  /* Number inputs */
+  .temp-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .temp-row:last-of-type { margin-bottom: 0; }
+
+  .temp-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .temp-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  input[type=number] {
+    width: 64px;
+    padding: 6px 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text);
+    background: var(--cream);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    text-align: center;
+    outline: none;
+    transition: border-color 0.15s;
+    -moz-appearance: textfield;
+  }
+
+  input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+  input[type=number]:focus { border-color: var(--wheat); }
+
+  input[type=number].computed {
+    background: var(--cream-dark);
+    color: var(--text-muted);
+    border-style: dashed;
+  }
+
+  .temp-unit { font-size: 0.85rem; color: var(--text-hint); }
+
+  /* Banner */
+  .temp-banner {
+    margin-top: 1.25rem;
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    font-size: 0.825rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+
+  .temp-banner.cold { background: var(--blue-light); color: var(--blue); border: 1px solid #C0D5EC; }
+  .temp-banner.warm { background: var(--green-light); color: var(--green); border: 1px solid #C0D9BB; }
+  .temp-banner.hot  { background: var(--amber-light); color: var(--amber); border: 1px solid #DFC870; }
+  .temp-banner.vhot { background: var(--red-light); color: var(--red); border: 1px solid #DFA090; }
+
+  .banner-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    flex-shrink: 0; margin-top: 4px;
+  }
+
+  .cold .banner-dot { background: var(--blue); }
+  .warm .banner-dot { background: var(--green); }
+  .hot  .banner-dot { background: var(--amber); }
+  .vhot .banner-dot { background: var(--red); }
+
+  /* Full-width cards */
+  .full-width { grid-column: 1 / -1; }
+
+  /* Summary metrics */
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  @media (max-width: 680px) { .metrics { grid-template-columns: repeat(2,1fr); } }
+
+  .metric {
+    padding: 1.25rem 1.5rem;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .metric:last-child { border-right: none; }
+
+  @media (max-width: 680px) {
+    .metric:nth-child(2) { border-right: none; }
+    .metric:nth-child(3) { border-right: 1px solid var(--border); }
+    .metric { border-bottom: 1px solid var(--border); }
+    .metric:nth-child(3), .metric:nth-child(4) { border-bottom: none; }
+  }
+
+  .metric-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-hint);
+    margin-bottom: 6px;
+  }
+
+  .metric-value {
+    font-family: 'Lora', serif;
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: var(--bark);
+  }
+
+  .metric-unit { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+
+  /* Recipe table */
+  .recipe-table { width: 100%; border-collapse: collapse; }
+
+  .recipe-table tr { border-bottom: 1px solid var(--border); }
+  .recipe-table tr:last-child { border-bottom: none; }
+
+  .recipe-table td {
+    padding: 11px 0;
+    font-size: 0.9rem;
+    vertical-align: middle;
+  }
+
+  .recipe-table .ing-name { color: var(--text); }
+  .recipe-table .ing-amt {
+    text-align: right;
+    font-weight: 500;
+    color: var(--bark);
+    padding-right: 8px;
+  }
+
+  .recipe-table .ing-pct {
+    text-align: right;
+    font-size: 0.78rem;
+    color: var(--text-hint);
+    width: 48px;
+  }
+
+  .recipe-table tr.total td { font-weight: 500; color: var(--bark); padding-top: 14px; border-top: 2px solid var(--border-strong); border-bottom: none; }
+
+  .recipe-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    padding: 2px 8px;
+    border-radius: 99px;
+    background: var(--cream-dark);
+    color: var(--bark-mid);
+    border: 1px solid var(--border);
+    margin-left: 8px;
+    font-weight: 400;
+    vertical-align: middle;
+  }
+
+  /* Timeline */
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+  }
+
+  .step {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 12px;
+    position: relative;
+  }
+
+  .step-num {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-hint);
+    margin-bottom: 4px;
+  }
+
+  .step-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--bark);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  .step-time {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .step.highlight {
+    background: var(--bark);
+    border-color: var(--bark);
+  }
+
+  .step.highlight .step-num { color: var(--bark-light); }
+  .step.highlight .step-name { color: var(--wheat-light); }
+  .step.highlight .step-time { color: var(--bark-light); }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+    color: var(--text-hint);
+    border-top: 1px solid var(--border);
+  }
+
+  footer strong { color: var(--text-muted); font-weight: 500; }
+
+  /* Divider in card body */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <span class="header-icon">🍞</span>
+    <h1>Surdegskalkylatorn</h1>
+    <p>Beräknar ingredienser och tider automatiskt – inklusive vattentemperatur baserad på din rumstemperatur</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- Grundinställningar -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-icon">⚙️</div>
+      <h2>Grundinställningar</h2>
+    </div>
+    <div class="card-body">
+      <div class="slider-row">
+        <div class="slider-label-row">
+          <span class="slider-label">Antal bröd</span>
+          <span class="slider-value" id="loaves-out">1 st</span>
+        </div>
+        <input type="range" min="1" max="5" step="1" value="1" id="loaves">
+      </div>
+      <div class="slider-row">
+        <div class="slider-label-row">
+          <span class="slider-label">Brödens storlek</span>
+          <span class="slider-value" id="size-out">700 g</span>
+        </div>
+        <input type="range" min="400" max="1200" step="50" value="700" id="size">
+      </div>
+      <div class="slider-row">
+        <div class="slider-label-row">
+          <span class="slider-label">Hydrering</span>
+          <span class="slider-value" id="hydration-out">75%</span>
+        </div>
+        <input type="range" min="60" max="90" step="1" value="75" id="hydration">
+      </div>
+      <div class="slider-row">
+        <div class="slider-label-row">
+          <span class="slider-label">Surdeg (% av mjöl)</span>
+          <span class="slider-value" id="starter-out">20%</span>
+        </div>
+        <input type="range" min="10" max="30" step="1" value="20" id="starter">
+      </div>
+      <div class="slider-row">
+        <div class="slider-label-row">
+          <span class="slider-label">Salt (% av mjöl)</span>
+          <span class="slider-value" id="salt-out">2.0%</span>
+        </div>
+        <input type="range" min="1.5" max="2.5" step="0.1" value="2" id="salt">
+      </div>
+    </div>
+  </div>
+
+  <!-- Temperatur -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-icon">🌡️</div>
+      <h2>Temperatur</h2>
+    </div>
+    <div class="card-body">
+      <div class="temp-row">
+        <span class="temp-label">Rumstemperatur</span>
+        <div class="temp-input-wrap">
+          <input type="number" id="room-temp" min="15" max="32" value="22">
+          <span class="temp-unit">°C</span>
+        </div>
+      </div>
+      <div class="temp-row">
+        <span class="temp-label">Önskad degtemperatur</span>
+        <div class="temp-input-wrap">
+          <input type="number" id="dough-temp" min="18" max="30" value="24">
+          <span class="temp-unit">°C</span>
+        </div>
+      </div>
+      <div class="temp-row">
+        <span class="temp-label">Vattentemperatur <em style="font-style:normal;font-size:0.75rem;color:var(--text-hint);">(beräknad)</em></span>
+        <div class="temp-input-wrap">
+          <input type="number" id="water-temp" class="computed" value="26" readonly>
+          <span class="temp-unit">°C</span>
+        </div>
+      </div>
+
+      <div id="temp-banner" class="temp-banner warm">
+        <div class="banner-dot"></div>
+        <span id="temp-msg">Bra temperatur – normal jästid</span>
+      </div>
+
+      <hr class="divider">
+
+      <p style="font-size:0.78rem;color:var(--text-hint);line-height:1.6;">
+        Vattentemperaturen beräknas med DDT-formeln:<br>
+        <span style="color:var(--text-muted);font-style:italic;">(önskad degtemp × 3) − rumstemperatur − mjöltemperatur − friktionsvärme (5°)</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Sammanfattning -->
+  <div class="card full-width">
+    <div class="metrics" id="metrics">
+      <div class="metric">
+        <p class="metric-label">Total degvikt</p>
+        <p class="metric-value" id="c-total">—</p>
+        <p class="metric-unit">gram</p>
+      </div>
+      <div class="metric">
+        <p class="metric-label">Mjölmängd</p>
+        <p class="metric-value" id="c-flour">—</p>
+        <p class="metric-unit">gram</p>
+      </div>
+      <div class="metric">
+        <p class="metric-label">Vattenmängd</p>
+        <p class="metric-value" id="c-water">—</p>
+        <p class="metric-unit">gram</p>
+      </div>
+      <div class="metric">
+        <p class="metric-label">Surdeg</p>
+        <p class="metric-value" id="c-starter">—</p>
+        <p class="metric-unit">gram</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recept -->
+  <div class="card full-width">
+    <div class="card-header">
+      <div class="card-header-icon">📋</div>
+      <h2>Recept <span class="recipe-badge" id="loaves-label">1 bröd</span></h2>
+    </div>
+    <div class="card-body">
+      <table class="recipe-table">
+        <tbody>
+          <tr>
+            <td class="ing-name">Vetemjöl (siktat)</td>
+            <td class="ing-amt" id="r-flour">—</td>
+            <td class="ing-pct">100%</td>
+          </tr>
+          <tr>
+            <td class="ing-name">Vatten <span id="r-water-temp-label" style="font-size:0.78rem;color:var(--text-hint);"></span></td>
+            <td class="ing-amt" id="r-water">—</td>
+            <td class="ing-pct" id="r-water-pct">—</td>
+          </tr>
+          <tr>
+            <td class="ing-name">Aktiv surdeg</td>
+            <td class="ing-amt" id="r-starter">—</td>
+            <td class="ing-pct" id="r-starter-pct">—</td>
+          </tr>
+          <tr>
+            <td class="ing-name">Salt</td>
+            <td class="ing-amt" id="r-salt">—</td>
+            <td class="ing-pct" id="r-salt-pct">—</td>
+          </tr>
+          <tr class="total">
+            <td class="ing-name">Totalt</td>
+            <td class="ing-amt" id="r-total">—</td>
+            <td class="ing-pct"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Tidsplan -->
+  <div class="card full-width">
+    <div class="card-header">
+      <div class="card-header-icon">⏱️</div>
+      <h2>Tidsplan <span style="font-size:0.8rem;font-weight:400;color:var(--text-hint);margin-left:6px;">(anpassad efter temperatur)</span></h2>
+    </div>
+    <div class="card-body">
+      <div class="timeline">
+        <div class="step">
+          <p class="step-num">Steg 1</p>
+          <p class="step-name">Mata surdegen</p>
+          <p class="step-time">Kvällen innan</p>
+        </div>
+        <div class="step">
+          <p class="step-num">Steg 2</p>
+          <p class="step-name">Blanda degen</p>
+          <p class="step-time">30 min</p>
+        </div>
+        <div class="step">
+          <p class="step-num">Steg 3</p>
+          <p class="step-name">Autolys</p>
+          <p class="step-time" id="t-autolys">30–60 min</p>
+        </div>
+        <div class="step highlight">
+          <p class="step-num">Steg 4</p>
+          <p class="step-name">Bulk-jäsning</p>
+          <p class="step-time" id="t-bulk">4–5 tim</p>
+        </div>
+        <div class="step">
+          <p class="step-num">Steg 5</p>
+          <p class="step-name">Formning &amp; korg</p>
+          <p class="step-time">30 min</p>
+        </div>
+        <div class="step">
+          <p class="step-num">Steg 6</p>
+          <p class="step-name">Kall jäsning</p>
+          <p class="step-time">8–16 tim kyl</p>
+        </div>
+        <div class="step highlight">
+          <p class="step-num">Steg 7</p>
+          <p class="step-name">Baka</p>
+          <p class="step-time" id="t-bake">250°C, 45 min</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>Beräkningarna baseras på <strong>bageriprocent (baker's math)</strong> — mjölet är alltid 100% och övriga ingredienser mäts relativt det.</p>
+</footer>
+
+<script>
+  function fmt(n) { return Math.round(n); }
+
+  function calcBulkHours(roomTemp, starterPct) {
+    let base = 4.5;
+    const tempDiff = roomTemp - 22;
+    base -= tempDiff * (tempDiff > 0 ? 0.2 : -0.25);
+    const starterFactor = (20 - starterPct) * 0.08;
+    base += starterFactor;
+    return Math.max(2, Math.min(9, base));
+  }
+
+  function calcWaterTemp(desiredDoughTemp, roomTemp) {
+    return (desiredDoughTemp * 3) - roomTemp - roomTemp - 5;
+  }
+
+  function calc() {
+    const loaves   = +document.getElementById('loaves').value;
+    const size     = +document.getElementById('size').value;
+    const hyd      = +document.getElementById('hydration').value / 100;
+    const sPct     = +document.getElementById('starter').value / 100;
+    const saltPct  = +document.getElementById('salt').value / 100;
+    const roomTemp = +document.getElementById('room-temp').value || 22;
+    const doughTemp= +document.getElementById('dough-temp').value || 24;
+    const starterNum = +document.getElementById('starter').value;
+
+    // Update slider labels
+    document.getElementById('loaves-out').textContent    = loaves + ' st';
+    document.getElementById('size-out').textContent      = size + ' g';
+    document.getElementById('hydration-out').textContent = document.getElementById('hydration').value + '%';
+    document.getElementById('starter-out').textContent   = starterNum + '%';
+    document.getElementById('salt-out').textContent      = parseFloat(document.getElementById('salt').value).toFixed(1) + '%';
+
+    // Water temp
+    const waterTemp = Math.max(5, Math.min(50, Math.round(calcWaterTemp(doughTemp, roomTemp))));
+    document.getElementById('water-temp').value = waterTemp;
+    document.getElementById('r-water-temp-label').textContent = '(' + waterTemp + '°C)';
+
+    // Baker's math
+    const totalDough = loaves * size;
+    const flour      = totalDough / (1 + hyd + sPct + saltPct);
+    const water      = flour * hyd;
+    const starterAmt = flour * sPct;
+    const saltAmt    = flour * saltPct;
+
+    // Summary cards
+    document.getElementById('c-total').textContent   = fmt(totalDough);
+    document.getElementById('c-flour').textContent   = fmt(flour);
+    document.getElementById('c-water').textContent   = fmt(water);
+    document.getElementById('c-starter').textContent = fmt(starterAmt);
+
+    // Recipe
+    document.getElementById('loaves-label').textContent     = loaves + (loaves===1?' bröd':' bröd');
+    document.getElementById('r-flour').textContent          = fmt(flour) + ' g';
+    document.getElementById('r-water').textContent          = fmt(water) + ' g';
+    document.getElementById('r-water-pct').textContent      = document.getElementById('hydration').value + '%';
+    document.getElementById('r-starter').textContent        = fmt(starterAmt) + ' g';
+    document.getElementById('r-starter-pct').textContent    = starterNum + '%';
+    document.getElementById('r-salt').textContent           = fmt(saltAmt) + ' g';
+    document.getElementById('r-salt-pct').textContent       = parseFloat(document.getElementById('salt').value).toFixed(1) + '%';
+    document.getElementById('r-total').textContent          = fmt(flour+water+starterAmt+saltAmt) + ' g';
+
+    // Bulk time
+    const bulkH   = calcBulkHours(roomTemp, starterNum);
+    const bulkLow = Math.max(2, Math.round(bulkH - 0.5));
+    const bulkHi  = Math.round(bulkH + 0.5);
+    document.getElementById('t-bulk').textContent   = bulkLow + '–' + bulkHi + ' tim';
+    document.getElementById('t-autolys').textContent = roomTemp >= 25 ? '20–30 min' : '30–60 min';
+
+    // Bake time
+    const bakeTime = size >= 900 ? 50 : size >= 600 ? 45 : 40;
+    document.getElementById('t-bake').textContent = '250°C, ' + bakeTime + ' min';
+
+    // Temp banner
+    const banner = document.getElementById('temp-banner');
+    const msg    = document.getElementById('temp-msg');
+    banner.className = 'temp-banner';
+
+    if (roomTemp < 18) {
+      banner.classList.add('cold');
+      msg.textContent = 'Kallt kök – räkna med lång bulk-jäsning. Överväg mer surdeg.';
+    } else if (roomTemp <= 24) {
+      banner.classList.add('warm');
+      msg.textContent = 'Bra temperatur – normal jästid och god kontroll på degen.';
+    } else if (roomTemp <= 27) {
+      banner.classList.add('hot');
+      msg.textContent = 'Varmt – kortare bulk, håll ett öga på degen och känn efter.';
+    } else {
+      banner.classList.add('vhot');
+      msg.textContent = 'Mycket varmt – sätt degen svalt eller minska surdegen för att inte överjäsa.';
+    }
+  }
+
+  ['loaves','size','hydration','starter','salt'].forEach(id =>
+    document.getElementById(id).addEventListener('input', calc)
+  );
+  ['room-temp','dough-temp'].forEach(id =>
+    document.getElementById(id).addEventListener('input', calc)
+  );
+
+  calc();
+</script>
+</body>
+</html>
