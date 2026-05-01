@@ -241,16 +241,16 @@ footer strong{color:var(--text-muted);font-weight:500;}
       <div class="srow">
         <div class="srow-top">
           <span class="srow-label" id="l-hydration">Hydration <span id="hyd-hint" style="font-size:0.72rem;color:var(--text-hint);font-weight:400;"></span></span>
-          <span class="srow-val" id="hydration-out">75%</span>
+          <span class="srow-val" id="hydration-out">75% <span id="hydration-g" style="font-weight:400;color:var(--text-hint);font-size:0.75rem;"></span></span>
         </div>
         <input type="range" min="55" max="90" step="1" value="75" id="hydration">
       </div>
       <div class="srow">
-        <div class="srow-top"><span class="srow-label" id="l-starter">Starter (% of flour)</span><span class="srow-val" id="starter-out">20%</span></div>
+        <div class="srow-top"><span class="srow-label" id="l-starter">Starter (% of flour)</span><span class="srow-val" id="starter-out">20% <span id="starter-g" style="font-weight:400;color:var(--text-hint);font-size:0.75rem;"></span></span></div>
         <input type="range" min="10" max="30" step="1" value="20" id="starter">
       </div>
       <div class="srow">
-        <div class="srow-top"><span class="srow-label" id="l-salt">Salt (% of flour)</span><span class="srow-val" id="salt-out">2.0%</span></div>
+        <div class="srow-top"><span class="srow-label" id="l-salt">Salt (% of flour)</span><span class="srow-val" id="salt-out">2.0% <span id="salt-g" style="font-weight:400;color:var(--text-hint);font-size:0.75rem;"></span></span></div>
         <input type="range" min="1.5" max="2.5" step="0.1" value="2" id="salt">
       </div>
     </div>
@@ -652,9 +652,9 @@ function calc() {
   const loafWord = loaves===1 ? t('loaf') : t('loaves2');
   document.getElementById('loaves-out').textContent    = loaves + (lang==='en' ? (loaves===1?' loaf':' loaves') : ' st');
   document.getElementById('size-out').textContent      = size+' g';
-  document.getElementById('hydration-out').textContent = hydNum+'%';
-  document.getElementById('starter-out').textContent   = starterNum+'%';
-  document.getElementById('salt-out').textContent      = parseFloat(document.getElementById('salt').value).toFixed(1)+'%';
+  document.getElementById('hydration-out').childNodes[0].textContent = hydNum+'% ';
+  document.getElementById('starter-out').childNodes[0].textContent   = starterNum+'% ';
+  document.getElementById('salt-out').childNodes[0].textContent      = parseFloat(document.getElementById('salt').value).toFixed(1)+'% ';
 
   // DDT
   const wt = Math.max(5, Math.min(50, Math.round((doughTemp*3)-roomTemp-roomTemp-5)));
@@ -681,6 +681,11 @@ function calc() {
   document.getElementById('c-flour').textContent   = fmt(flour);
   document.getElementById('c-water').textContent   = fmt(water);
   document.getElementById('c-starter').textContent = fmt(starterAmt);
+
+  // Gram hints on sliders
+  document.getElementById('hydration-g').textContent  = '(' + fmt(water) + ' g)';
+  document.getElementById('starter-g').textContent    = '(' + fmt(starterAmt) + ' g)';
+  document.getElementById('salt-g').textContent       = '(' + fmt(saltAmt) + ' g)';
 
   const fa = { w:flour*comp.w/100, fk:flour*(comp.fk||0)/100, r:flour*comp.r/100, rk:flour*comp.rk/100 };
 
