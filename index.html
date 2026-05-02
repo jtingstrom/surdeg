@@ -274,6 +274,11 @@ footer strong{color:var(--text-muted);font-weight:500;}
       </div>
       <div id="temp-banner" class="tbanner warm"><div class="bdot"></div><span id="temp-msg"></span></div>
       <hr class="div">
+      <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.78rem;">
+        <span id="l-bulk-label" style="color:var(--text-muted);"></span>
+        <span id="bulk-preview" style="font-weight:500;color:var(--bark);background:var(--cream);padding:2px 10px;border-radius:99px;border:1px solid var(--border);"></span>
+      </div>
+      <hr class="div">
       <p id="l-ddt-formula" style="font-size:0.74rem;color:var(--text-hint);line-height:1.6;"></p>
     </div>
   </div>
@@ -453,6 +458,7 @@ const T = {
     profNoteNordic:'Soak cracked rye overnight. 70–82% hydration recommended.',
     customHyd:'Recommended hydration for your blend: ',
     footer:'All calculations use <strong>baker\'s percentages</strong> — flour is always 100% and all other ingredients are measured relative to it.',
+    bulkLabel: 'Estimated bulk fermentation',
   },
   sv: {
     title: 'Surdegskalkylatorn',
@@ -499,6 +505,7 @@ const T = {
     profNoteNordic:'Blötlägg rågkrossen över natten. 70–82% hydrering rekommenderas.',
     customHyd:'Rekommenderad hydrering för din blandning: ',
     footer:'Beräkningarna baseras på <strong>bageriprocent (baker\'s math)</strong> — mjölet är alltid 100% och övriga ingredienser mäts relativt det.',
+    bulkLabel: 'Beräknad bulk-jäsning',
   }
 };
 
@@ -565,6 +572,7 @@ function applyLang() {
   for (let i=1;i<=8;i++) { const el=document.getElementById('sn'+i); if(el) el.textContent=L.step+' '+i; }
   document.getElementById('sn5b').textContent = L.step + ' 5b';
   document.getElementById('l-footer').innerHTML = L.footer;
+  setText('l-bulk-label', L.bulkLabel);
   // re-apply profile hint if one is selected
   if (currentProfile) {
     const noteKey = {country:'profNoteCountry',wholegrain:'profNoteWholegrain',ryebread:'profNoteRyebread',nordic:'profNoteNordic'}[currentProfile];
@@ -716,7 +724,11 @@ function calc() {
     b += (20-starterNum)*0.08;
     return b*(comp.bFactor||1);
   })()));
-  document.getElementById('t-bulk').textContent    = Math.max(2,Math.round(bulkH-0.5))+'–'+Math.round(bulkH+0.5)+' '+t('bulkUnit');
+  const bulkLow = Math.max(2,Math.round(bulkH-0.5));
+  const bulkHi  = Math.round(bulkH+0.5);
+  const bulkStr = bulkLow+'–'+bulkHi+' '+t('bulkUnit');
+  document.getElementById('t-bulk').textContent    = bulkStr;
+  document.getElementById('bulk-preview').textContent = bulkStr;
   document.getElementById('t-autolys').textContent = roomTemp>=25 ? t('autolysShort') : t('autolysLong');
 
   // Folds
@@ -748,7 +760,11 @@ function calc() {
 }
 
 ['loaves','size','hydration','starter','salt'].forEach(id=>document.getElementById(id).addEventListener('input',calc));
-['room-temp','dough-temp'].forEach(id=>document.getElementById(id).addEventListener('input',calc));
+['room-temp','dough-temp'].forEach(id=>{
+  const el = document.getElementById(id);
+  el.addEventListener('input', calc);
+  el.addEventListener('change', calc);
+});
 
 applyLang();
 calc();
