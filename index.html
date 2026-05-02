@@ -408,7 +408,7 @@ footer strong{color:var(--text-muted);font-weight:500;}
 
 </main>
 
-<footer><p id="l-footer"></p></footer>
+<footer><p id="l-footer"></p><p style="margin-top:0.6rem;"><a href="contact.html" id="l-contact-link" style="color:var(--bark-light);text-decoration:none;font-size:0.78rem;">✉️ <span id="l-contact-txt">Kontakt</span></a></p><p style="margin-top:0.5rem;font-size:0.75rem;color:var(--text-hint);">Skapad av Jan Tingstrom</p></footer>
 
 <script>
 // ── Translations ──
@@ -459,6 +459,7 @@ const T = {
     customHyd:'Recommended hydration for your blend: ',
     footer:'All calculations use <strong>baker\'s percentages</strong> — flour is always 100% and all other ingredients are measured relative to it.',
     bulkLabel: 'Estimated bulk fermentation',
+    contactTxt: 'Contact',
   },
   sv: {
     title: 'Surdegskalkylatorn',
@@ -506,6 +507,7 @@ const T = {
     customHyd:'Rekommenderad hydrering för din blandning: ',
     footer:'Beräkningarna baseras på <strong>bageriprocent (baker\'s math)</strong> — mjölet är alltid 100% och övriga ingredienser mäts relativt det.',
     bulkLabel: 'Beräknad bulk-jäsning',
+    contactTxt: 'Kontakt',
   }
 };
 
@@ -573,6 +575,7 @@ function applyLang() {
   document.getElementById('sn5b').textContent = L.step + ' 5b';
   document.getElementById('l-footer').innerHTML = L.footer;
   setText('l-bulk-label', L.bulkLabel);
+  setText('l-contact-txt', L.contactTxt);
   // re-apply profile hint if one is selected
   if (currentProfile) {
     const noteKey = {country:'profNoteCountry',wholegrain:'profNoteWholegrain',ryebread:'profNoteRyebread',nordic:'profNoteNordic'}[currentProfile];
