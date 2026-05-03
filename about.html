@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Om kalkylatorn – Surdegskalkylatorn</title>
+<meta name="description" content="Om Surdegskalkylatorn – hur beräkningarna fungerar, bageriprocent, DDT-formeln och tips för bättre surdegsbröd.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://surdeg.gingenerator.com/about.html">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://surdeg.gingenerator.com/about.html">
+<meta property="og:title" content="Om kalkylatorn – Surdegskalkylatorn">
+<meta property="og:description" content="Hur beräkningarna fungerar – bageriprocent, hydrering, DDT och mjölsorter förklarade.">
+<meta property="og:image" content="https://surdeg.gingenerator.com/preview.png">
+<meta property="og:site_name" content="Surdegskalkylatorn">
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta name="theme-color" content="#4A3728">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- Statcounter -->
+<script type="text/javascript">
+var sc_project=13225342;
+var sc_invisible=1;
+var sc_security="1dae20ef";
+</script>
+<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript><div class="statcounter"><a title="Web Analytics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13225342/0/1dae20ef/1/" alt="Web Analytics" referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --cream:#F7F3EC; --cream-dark:#EDE8DF; --bark:#4A3728; --bark-mid:#7A5C48;
+  --bark-light:#A6846E; --wheat:#C8A97A; --wheat-light:#F0E4CC; --text:#2C1F14;
+  --text-muted:#7A6355; --text-hint:#A89080;
+  --border:rgba(74,55,40,0.13); --border-strong:rgba(74,55,40,0.28);
+  --green:#3B6741; --green-bg:#E8F0E6;
+  --amber:#7A5E10; --amber-bg:#F5EDCF;
+  --radius:10px; --radius-lg:16px;
+  --shadow:0 1px 3px rgba(74,55,40,0.08),0 4px 16px rgba(74,55,40,0.06);
+}
+body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--text); min-height:100vh; }
+
+/* ── Header ── */
+header { background:var(--bark); padding:3rem 2rem 2.5rem; text-align:center; position:relative; overflow:hidden; }
+header::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(45deg,transparent,transparent 22px,rgba(255,255,255,0.018) 22px,rgba(255,255,255,0.018) 23px); }
+.header-inner { position:relative; z-index:1; }
+.header-icon { font-size:2.8rem; display:block; margin-bottom:0.9rem; }
+header h1 { font-family:'Lora',serif; font-size:clamp(1.6rem,4vw,2.4rem); font-weight:400; color:var(--wheat-light); letter-spacing:-0.01em; margin-bottom:0.5rem; }
+header p { font-size:0.95rem; color:var(--bark-light); font-weight:300; max-width:460px; margin:0 auto; line-height:1.6; }
+
+/* ── Nav ── */
+.back-link { position:absolute; top:1.2rem; left:1.5rem; z-index:10; font-size:0.78rem; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; display:flex; align-items:center; gap:5px; transition:color 0.15s; }
+.back-link:hover { color:var(--wheat-light); }
+.lang-toggle { position:absolute; top:1.2rem; right:1.5rem; z-index:10; display:flex; background:rgba(255,255,255,0.1); border-radius:99px; padding:3px; gap:2px; border:1px solid rgba(255,255,255,0.18); }
+.lang-btn { padding:4px 12px; font-family:'DM Sans',sans-serif; font-size:0.78rem; font-weight:500; color:rgba(255,255,255,0.6); background:transparent; border:none; border-radius:99px; cursor:pointer; transition:all 0.18s; }
+.lang-btn.active { background:rgba(255,255,255,0.18); color:var(--wheat-light); }
+
+/* ── Layout ── */
+main { max-width:720px; margin:0 auto; padding:2.5rem 1.5rem 4rem; display:flex; flex-direction:column; gap:1.25rem; }
+@media(max-width:700px){ main { padding:1.5rem 1rem 3rem; } }
+
+/* ── Cards ── */
+.card { background:white; border-radius:var(--radius-lg); border:1px solid var(--border); box-shadow:var(--shadow); overflow:hidden; }
+.card-head { padding:1.1rem 1.4rem 0.9rem; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; }
+.ch-icon { width:30px; height:30px; background:var(--cream-dark); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+.card-head h2 { font-family:'Lora',serif; font-size:1rem; font-weight:500; color:var(--bark); }
+.card-body { padding:1.4rem; }
+hr.div { border:none; border-top:1px solid var(--border); margin:1.1rem 0; }
+
+/* ── Typography ── */
+.body-text { font-size:0.9rem; color:var(--text-muted); line-height:1.75; }
+.body-text + .body-text { margin-top:0.9rem; }
+h3.sub { font-family:'Lora',serif; font-size:0.95rem; font-weight:500; color:var(--bark); margin:1.2rem 0 0.4rem; }
+h3.sub:first-child { margin-top:0; }
+
+/* ── Formula box ── */
+.formula-box {
+  background:var(--cream-dark); border:1px solid var(--border-strong);
+  border-radius:var(--radius); padding:1rem 1.25rem; margin:1rem 0;
+  font-size:0.85rem; color:var(--bark); line-height:1.8;
+}
+.formula-box .formula-title { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-hint); margin-bottom:6px; }
+.formula-val { font-family:monospace; font-size:0.92rem; color:var(--bark); }
+
+/* ── Flour table ── */
+.ftable { width:100%; border-collapse:collapse; font-size:0.85rem; margin-top:0.5rem; }
+.ftable th { text-align:left; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-hint); padding:0 0 8px; border-bottom:1px solid var(--border-strong); font-weight:500; }
+.ftable td { padding:9px 0; border-bottom:1px solid var(--border); color:var(--text-muted); vertical-align:top; }
+.ftable td:first-child { font-weight:500; color:var(--bark); padding-right:12px; white-space:nowrap; }
+.ftable tr:last-child td { border-bottom:none; }
+
+/* ── Tip box ── */
+.tip-box { background:var(--green-bg); border:1px solid #BDDAB8; border-radius:var(--radius); padding:10px 14px; font-size:0.82rem; color:var(--green); line-height:1.55; display:flex; gap:8px; margin-top:1rem; }
+
+/* ── CTA ── */
+.cta-btn { display:inline-block; margin-top:1.25rem; padding:11px 24px; background:var(--bark); color:var(--wheat-light); font-family:'DM Sans',sans-serif; font-size:0.88rem; font-weight:500; border-radius:var(--radius); text-decoration:none; transition:background 0.18s; }
+.cta-btn:hover { background:#3a2b1e; }
+
+/* ── Footer ── */
+footer { text-align:center; padding:1.75rem 2rem; font-size:0.78rem; color:var(--text-hint); border-top:1px solid var(--border); }
+footer a { color:var(--bark-light); text-decoration:none; }
+footer a:hover { color:var(--bark); }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="back-link" href="/index.html">← <span id="l-back">Tillbaka till kalkylatorn</span></a>
+  <div class="lang-toggle">
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+    <button class="lang-btn active" onclick="setLang('sv')">SV</button>
+  </div>
+  <div class="header-inner">
+    <span class="header-icon">📖</span>
+    <h1 id="h-title">Om kalkylatorn</h1>
+    <p id="h-sub">Hur beräkningarna fungerar och varför</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- Bageriprocent -->
+  <div class="card">
+    <div class="card-head"><div class="ch-icon">📐</div><h2 id="l-bp-title">Bageriprocent</h2></div>
+    <div class="card-body">
+      <p class="body-text" id="l-bp-1"></p>
+      <p class="body-text" id="l-bp-2"></p>
+      <div class="formula-box">
+        <p class="formula-title" id="l-bp-ex-title">Exempel</p>
+        <p class="formula-val" id="l-bp-ex"></p>
+      </div>
+      <p class="body-text" id="l-bp-3"></p>
+    </div>
+  </div>
+
+  <!-- Hydrering -->
+  <div class="card">
+    <div class="card-head"><div class="ch-icon">💧</div><h2 id="l-hyd-title">Hydrering</h2></div>
+    <div class="card-body">
+      <p class="body-text" id="l-hyd-1"></p>
+      <table class="ftable">
+        <thead><tr><th id="l-hyd-th1">Hydrering</th><th id="l-hyd-th2">Egenskap</th></tr></thead>
+        <tbody>
+          <tr><td>60–65%</td><td id="l-hyd-r1"></td></tr>
+          <tr><td>70–75%</td><td id="l-hyd-r2"></td></tr>
+          <tr><td>78–85%</td><td id="l-hyd-r3"></td></tr>
+          <tr><td>&gt;85%</td><td id="l-hyd-r4"></td></tr>
+        </tbody>
+      </table>
+      <div class="tip-box"><span>💡</span><span id="l-hyd-tip"></span></div>
+    </div>
+  </div>
+
+  <!-- DDT -->
+  <div class="card">
+    <div class="card-head"><div class="ch-icon">🌡️</div><h2 id="l-ddt-title">Önskad degtemperatur (DDT)</h2></div>
+    <div class="card-body">
+      <p class="body-text" id="l-ddt-1"></p>
+      <div class="formula-box">
+        <p class="formula-title" id="l-ddt-formula-title">DDT-formeln</p>
+        <p class="formula-val" id="l-ddt-formula"></p>
+      </div>
+      <p class="body-text" id="l-ddt-2"></p>
+      <div class="tip-box"><span>💡</span><span id="l-ddt-tip"></span></div>
+    </div>
+  </div>
+
+  <!-- Mjölsorter -->
+  <div class="card">
+    <div class="card-head"><div class="ch-icon">🌾</div><h2 id="l-flour-title">Mjölsorter</h2></div>
+    <div class="card-body">
+      <p class="body-text" id="l-flour-1"></p>
+      <table class="ftable">
+        <thead><tr><th id="l-flour-th1">Mjölsort</th><th id="l-flour-th2">Absorption</th><th id="l-flour-th3">Egenskap</th></tr></thead>
+        <tbody>
+          <tr><td id="l-fn1">🤍 Vitt vetemjöl</td><td>+0%</td><td id="l-fd1"></td></tr>
+          <tr><td id="l-fn2">🟤 Fullkornsvete</td><td>+7%</td><td id="l-fd2"></td></tr>
+          <tr><td id="l-fn3">🍫 Rågmjöl</td><td>+12%</td><td id="l-fd3"></td></tr>
+          <tr><td id="l-fn4">🌰 Rågkross</td><td>+18%</td><td id="l-fd4"></td></tr>
+        </tbody>
+      </table>
+      <p class="body-text" style="margin-top:0.9rem;" id="l-flour-2"></p>
+    </div>
+  </div>
+
+  <!-- Bulk-jäsning -->
+  <div class="card">
+    <div class="card-head"><div class="ch-icon">⏱️</div><h2 id="l-bulk-title">Bulk-jäsning och vikningar</h2></h2></div>
+    <div class="card-body">
+      <p class="body-text" id="l-bulk-1"></p>
+      <hr class="div">
+      <h3 class="sub" id="l-fold-title">Vikningar (stretch &amp; fold)</h3>
+      <p class="body-text" id="l-fold-1"></p>
+      <div class="tip-box"><span>💡</span><span id="l-fold-tip"></span></div>
+    </div>
+  </div>
+
+  <!-- Om sidan -->
+  <div class="card">
+    <div class="card-head"><div class="ch-icon">🍞</div><h2 id="l-about-title">Om sidan</h2></div>
+    <div class="card-body">
+      <p class="body-text" id="l-about-1"></p>
+      <p class="body-text" id="l-about-2"></p>
+      <a href="/contact.html" class="cta-btn" id="l-about-cta">✉️ Kontakta oss</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p><a href="/index.html" id="l-footer-calc">← Surdegskalkylatorn</a> &nbsp;·&nbsp; <a href="/contact.html" id="l-footer-contact">Kontakt</a></p>
+  <p style="margin-top:0.5rem;font-size:0.75rem;color:var(--text-hint);">Skapad av Jan Tingstrom &nbsp;·&nbsp; v1.0</p>
+</footer>
+
+<script>
+const T = {
+  sv: {
+    back:'Tillbaka till kalkylatorn',
+    hTitle:'Om kalkylatorn', hSub:'Hur beräkningarna fungerar och varför',
+    bpTitle:'Bageriprocent',
+    bp1:'Kalkylatorn använder bageriprocent (baker\'s math) – ett system där mjölet alltid är 100% och alla andra ingredienser anges som en procentandel av mjölvikten.',
+    bp2:'Det gör det enkelt att skala recept upp eller ner och att förstå hur proportionerna förändras när du justerar en variabel.',
+    bpExTitle:'Exempel med 500 g mjöl',
+    bpEx:'Vatten 75%  → 500 × 0.75 = 375 g\nSurdeg 20% → 500 × 0.20 = 100 g\nSalt 2%    → 500 × 0.02 = 10 g',
+    bp3:'Kalkylatorn räknar baklänges från önskad brödvikt – den löser ut mjölmängden ur totalen och beräknar sedan resterande ingredienser.',
+    hydTitle:'Hydrering',
+    hyd1:'Hydreringen är mängden vatten i förhållande till mjöl. Den påverkar degkonsistens, smula, och hur svår degen är att hantera.',
+    hydTh1:'Hydrering', hydTh2:'Egenskap',
+    hydR1:'Fast deg, lätt att forma, tätare smula – bra för nybörjare.',
+    hydR2:'Balanserad deg, god smula, standardvalet för de flesta recept.',
+    hydR3:'Lösare deg, öppnare smula, kräver mer erfarenhet och god teknik.',
+    hydR4:'Mycket lös deg (ciabatta-stil), kräver coil folds och kall jäsning.',
+    hydTip:'Råg och fullkorn absorberar mer vatten – kalkylatorn justerar det rekommenderade hydreringsintervallet automatiskt baserat på din mjölblandning.',
+    ddtTitle:'Önskad degtemperatur (DDT)',
+    ddt1:'Degtemperaturen påverkar jäshastigheten mer än något annat. En deg på 24°C jäser ungefär dubbelt så snabbt som en deg på 18°C.',
+    ddtFormulaTitle:'DDT-formeln',
+    ddtFormula:'Vattentemp = (Önskad degtemp × 3) − Rumstemperatur − Mjöltemperatur − Friktionsvärme (5°)',
+    ddt2:'Mjöltemperaturen antas vara densamma som rumstemperaturen. Friktionsvärme på 5° uppstår vid blandning. Kalkylatorn räknar ut vattentemperaturen automatiskt.',
+    ddtTip:'Sträva efter 24–26°C i degen för förutsägbar och kontrollerad jäsning.',
+    flourTitle:'Mjölsorter',
+    flour1:'Olika mjölsorter absorberar olika mycket vatten och påverkar glutenutveckling och jästid på olika sätt.',
+    flourTh1:'Mjölsort', flourTh2:'Absorption', flourTh3:'Egenskap',
+    fn1:'🤍 Vitt vetemjöl', fn2:'🟤 Fullkornsvete', fn3:'🍫 Rågmjöl', fn4:'🌰 Rågkross',
+    fd1:'Starkt gluten, luftig smula, mest förlåtande att arbeta med.',
+    fd2:'Klidpartiklar skär glutennätverket – ger nötigare smak och tätare smula.',
+    fd3:'Inget gluten, snabb jäsning, hög absorption. Ger syrlig och komplex smak.',
+    fd4:'Kräver blötläggning (minst 2 timmar). Ger rustik konsistens och textur.',
+    flour2:'Kalkylatorn räknar ut ett viktat absorptionsmedelvärde för din blandning och justerar hydrerings­förslaget och bulk­jästiden därefter.',
+    bulkTitle:'Bulk-jäsning och vikningar',
+    bulk1:'Bulk-jäsningen är den viktigaste fasen. Degen ska växa 50–75% och kännas lätt och luftig – inte bara ha gått upp en viss tid. Faktorer som påverkar tiden: rumstemperatur, mängd surdeg, mjölblandning och degtemperatur.',
+    foldTitle:'Vikningar (stretch & fold)',
+    fold1:'Vikningar under bulken ersätter knådning. De bygger glutenstyrka och omfördelar jäsgaser. Kalkylatorn rekommenderar antal och typ baserat på hydreringen och mjölblandningen – fler vikningar vid hög hydrering, coil folds vid hög rågandel.',
+    foldTip:'Gör alla vikningar under de första 2 timmarna av bulken, sedan lämnar du degen ifred att jäsa färdigt.',
+    aboutTitle:'Om sidan',
+    about1:'Surdegskalkylatorn är ett gratis verktyg byggt av Jan Tingstrom för alla som vill baka bättre surdegsbröd – oavsett om du är nybörjare eller erfaren bagare.',
+    about2:'Hittar du ett fel eller har du ett förslag? Hör gärna av dig – vi förbättrar kalkylatorn löpande.',
+    aboutCta:'✉️ Kontakta oss',
+    footerCalc:'← Surdegskalkylatorn', footerContact:'Kontakt',
+  },
+  en: {
+    back:'Back to calculator',
+    hTitle:'About', hSub:'How the calculations work and why',
+    bpTitle:"Baker's Percentages",
+    bp1:"The calculator uses baker's math – a system where flour is always 100% and all other ingredients are expressed as a percentage of the flour weight.",
+    bp2:'This makes it easy to scale recipes up or down and understand how proportions change when you adjust one variable.',
+    bpExTitle:'Example with 500 g flour',
+    bpEx:'Water 75%   → 500 × 0.75 = 375 g\nStarter 20% → 500 × 0.20 = 100 g\nSalt 2%     → 500 × 0.02 = 10 g',
+    bp3:'The calculator works backwards from your target loaf weight – it solves for the flour amount and then calculates all other ingredients from there.',
+    hydTitle:'Hydration',
+    hyd1:'Hydration is the ratio of water to flour. It affects dough consistency, crumb structure, and how difficult the dough is to handle.',
+    hydTh1:'Hydration', hydTh2:'Characteristic',
+    hydR1:'Stiff dough, easy to shape, denser crumb – great for beginners.',
+    hydR2:'Balanced dough, good crumb, the default choice for most recipes.',
+    hydR3:'Slack dough, more open crumb, requires experience and good technique.',
+    hydR4:'Very slack dough (ciabatta-style), requires coil folds and cold proofing.',
+    hydTip:'Rye and wholegrain absorb more water – the calculator automatically adjusts the recommended hydration range based on your flour blend.',
+    ddtTitle:'Desired Dough Temperature (DDT)',
+    ddt1:'Dough temperature affects fermentation speed more than anything else. A dough at 24°C ferments roughly twice as fast as one at 18°C.',
+    ddtFormulaTitle:'The DDT formula',
+    ddtFormula:'Water temp = (Target dough temp × 3) − Room temp − Flour temp − Friction factor (5°)',
+    ddt2:'Flour temperature is assumed to equal room temperature. The 5° friction factor accounts for heat generated during mixing. The calculator works out your water temperature automatically.',
+    ddtTip:'Aim for 24–26°C in your dough for predictable, controllable fermentation.',
+    flourTitle:'Flour Types',
+    flour1:'Different flours absorb different amounts of water and affect gluten development and fermentation speed in different ways.',
+    flourTh1:'Flour type', flourTh2:'Absorption', flourTh3:'Characteristic',
+    fn1:'🤍 White bread flour', fn2:'🟤 Wholegrain wheat', fn3:'🍫 Rye flour', fn4:'🌰 Cracked rye',
+    fd1:'Strong gluten, open crumb, the most forgiving flour to work with.',
+    fd2:'Bran particles cut the gluten network – nuttier flavour and slightly denser crumb.',
+    fd3:'No gluten, fast fermentation, high absorption. Adds tang and complexity.',
+    fd4:'Must be soaked (at least 2 hours). Adds rustic texture and chew.',
+    flour2:'The calculator computes a weighted average absorption for your blend and adjusts the hydration suggestion and bulk fermentation time accordingly.',
+    bulkTitle:'Bulk Fermentation & Folds',
+    bulk1:'Bulk fermentation is the most important phase. The dough should grow 50–75% and feel light and airy – not just ferment for a set amount of time. Factors that affect the duration: room temperature, starter percentage, flour blend, and dough temperature.',
+    foldTitle:'Folds (stretch & fold)',
+    fold1:'Folds during the bulk replace kneading. They build gluten strength and redistribute fermentation gases. The calculator recommends the number and type of folds based on hydration and flour blend – more folds at high hydration, coil folds with high rye content.',
+    foldTip:'Complete all folds during the first 2 hours of the bulk, then leave the dough undisturbed to finish fermenting.',
+    aboutTitle:'About this site',
+    about1:'The Sourdough Calculator is a free tool built by Jan Tingstrom for anyone who wants to bake better sourdough – whether you\'re a complete beginner or a seasoned baker.',
+    about2:'Found a bug or have a suggestion? Get in touch – we continuously improve the calculator.',
+    aboutCta:'✉️ Contact us',
+    footerCalc:'← Sourdough Calculator', footerContact:'Contact',
+  }
+};
+
+let lang = 'sv';
+
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === l));
+  document.documentElement.lang = l;
+  applyLang();
+}
+
+function setText(id, val) { const el = document.getElementById(id); if (el) el.textContent = val; }
+
+function applyLang() {
+  const L = T[lang];
+  document.title = (lang === 'sv' ? 'Om kalkylatorn' : 'About') + ' – Surdegskalkylatorn';
+  setText('l-back', L.back);
+  setText('h-title', L.hTitle); setText('h-sub', L.hSub);
+  setText('l-bp-title', L.bpTitle);
+  setText('l-bp-1', L.bp1); setText('l-bp-2', L.bp2);
+  setText('l-bp-ex-title', L.bpExTitle); setText('l-bp-ex', L.bpEx);
+  setText('l-bp-3', L.bp3);
+  setText('l-hyd-title', L.hydTitle);
+  setText('l-hyd-1', L.hyd1);
+  setText('l-hyd-th1', L.hydTh1); setText('l-hyd-th2', L.hydTh2);
+  setText('l-hyd-r1', L.hydR1); setText('l-hyd-r2', L.hydR2);
+  setText('l-hyd-r3', L.hydR3); setText('l-hyd-r4', L.hydR4);
+  setText('l-hyd-tip', L.hydTip);
+  setText('l-ddt-title', L.ddtTitle);
+  setText('l-ddt-1', L.ddt1);
+  setText('l-ddt-formula-title', L.ddtFormulaTitle);
+  setText('l-ddt-formula', L.ddtFormula);
+  setText('l-ddt-2', L.ddt2); setText('l-ddt-tip', L.ddtTip);
+  setText('l-flour-title', L.flourTitle);
+  setText('l-flour-1', L.flour1);
+  setText('l-flour-th1', L.flourTh1); setText('l-flour-th2', L.flourTh2); setText('l-flour-th3', L.flourTh3);
+  setText('l-fn1', L.fn1); setText('l-fn2', L.fn2); setText('l-fn3', L.fn3); setText('l-fn4', L.fn4);
+  setText('l-fd1', L.fd1); setText('l-fd2', L.fd2); setText('l-fd3', L.fd3); setText('l-fd4', L.fd4);
+  setText('l-flour-2', L.flour2);
+  setText('l-bulk-title', L.bulkTitle); setText('l-bulk-1', L.bulk1);
+  setText('l-fold-title', L.foldTitle); setText('l-fold-1', L.fold1); setText('l-fold-tip', L.foldTip);
+  setText('l-about-title', L.aboutTitle);
+  setText('l-about-1', L.about1); setText('l-about-2', L.about2);
+  setText('l-about-cta', L.aboutCta);
+  setText('l-footer-calc', L.footerCalc); setText('l-footer-contact', L.footerContact);
+}
+
+applyLang();
+</script>
+</body>
+</html>

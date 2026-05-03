@@ -222,6 +222,10 @@ footer strong{color:var(--text-muted);font-weight:500;}
     <span class="header-icon">🍞</span>
     <h1 id="h-title">Sourdough Calculator</h1>
     <p id="h-sub">Calculates ingredients and timings automatically – with flour type selection and temperature compensation</p>
+    <div style="display:flex;justify-content:center;gap:1.5rem;margin-top:1.1rem;">
+      <a href="about.html" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;font-weight:500;transition:color 0.15s;" onmouseover="this.style.color='#F0E4CC'" onmouseout="this.style.color='rgba(255,255,255,0.55)'" id="l-nav-about">📖 Om kalkylatorn</a>
+      <a href="contact.html" style="font-size:0.82rem;color:rgba(255,255,255,0.55);text-decoration:none;font-weight:500;transition:color 0.15s;" onmouseover="this.style.color='#F0E4CC'" onmouseout="this.style.color='rgba(255,255,255,0.55)'" id="l-nav-contact">✉️ Kontakt</a>
+    </div>
   </div>
 </header>
 
@@ -413,7 +417,7 @@ footer strong{color:var(--text-muted);font-weight:500;}
 
 </main>
 
-<footer><p id="l-footer"></p><p style="margin-top:0.6rem;"><a href="contact.html" id="l-contact-link" style="color:var(--bark-light);text-decoration:none;font-size:0.78rem;">✉️ <span id="l-contact-txt">Kontakt</span></a></p><p style="margin-top:0.5rem;font-size:0.75rem;color:var(--text-hint);">Skapad av Jan Tingstrom &nbsp;·&nbsp; v1.0</p></footer>
+<footer><p id="l-footer"></p><p style="margin-top:0.6rem;display:flex;justify-content:center;gap:1.2rem;"><a href="about.html" style="color:var(--bark-light);text-decoration:none;font-size:0.78rem;">📖 <span id="l-about-txt">Om kalkylatorn</span></a><a href="contact.html" id="l-contact-link" style="color:var(--bark-light);text-decoration:none;font-size:0.78rem;">✉️ <span id="l-contact-txt">Kontakt</span></a></p><p style="margin-top:0.5rem;font-size:0.75rem;color:var(--text-hint);">Skapad av Jan Tingstrom &nbsp;·&nbsp; v1.0</p></footer>
 
 <script>
 // ── Translations ──
@@ -472,7 +476,7 @@ const T = {
     customHyd:'Recommended hydration for your blend: ',
     footer:'All calculations use <strong>baker\'s percentages</strong> — flour is always 100% and all other ingredients are measured relative to it.',
     bulkLabel: 'Estimated bulk fermentation',
-    contactTxt: 'Contact',
+    contactTxt: 'Contact', aboutTxt: 'About', navAbout: '📖 About', navContact: '✉️ Contact',
   },
   sv: {
     title: 'Surdegskalkylatorn',
@@ -528,7 +532,7 @@ const T = {
     customHyd:'Rekommenderad hydrering för din blandning: ',
     footer:'Beräkningarna baseras på <strong>bageriprocent (baker\'s math)</strong> — mjölet är alltid 100% och övriga ingredienser mäts relativt det.',
     bulkLabel: 'Beräknad bulk-jäsning',
-    contactTxt: 'Kontakt',
+    contactTxt: 'Kontakt', aboutTxt: 'Om kalkylatorn', navAbout: '📖 Om kalkylatorn', navContact: '✉️ Kontakt',
   }
 };
 
@@ -597,6 +601,9 @@ function applyLang() {
   document.getElementById('l-footer').innerHTML = L.footer;
   setText('l-bulk-label', L.bulkLabel);
   setText('l-contact-txt', L.contactTxt);
+  setText('l-about-txt', L.aboutTxt);
+  setText('l-nav-about', L.navAbout);
+  setText('l-nav-contact', L.navContact);
   // re-apply profile hint if one is selected
   if (currentProfile) {
     const noteKey = {country:'profNoteCountry',wholegrain:'profNoteWholegrain',ryebread:'profNoteRyebread',nordic:'profNoteNordic'}[currentProfile];
